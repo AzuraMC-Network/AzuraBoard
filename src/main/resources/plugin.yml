@@ -1,0 +1,19 @@
+name: AzuraBoard
+version: '${version}'
+author: "An5w1r_"
+main: cc.azuramc.azuraboard.AzuraBoard
+api-version: '1.13'
+description: 'Simple scoreboard plugin based on FastBoard with PlaceholderAPI support'
+softdepend: [PlaceholderAPI]
+commands:
+  azuraboard:
+    description: Main command for AzuraBoard plugin
+    aliases: [ab]
+    permission: azuraboard.command
+permissions:
+  azuraboard.command:
+    description: Allows using AzuraBoard commands
+    default: op
+  azuraboard.toggle:
+    description: Allows toggling scoreboard display
+    default: true

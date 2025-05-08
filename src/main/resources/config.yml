@@ -1,0 +1,27 @@
+# AzuraBoard Configuration File
+# Use color codes with & to set colors, example: &a&lTitle
+
+settings:
+  update-interval: 20 # Update interval in ticks
+  # Note: PlaceholderAPI support is automatically enabled if the plugin is detected
+
+scoreboard:
+  # Scoreboard title
+  title: '&b&lAzura&f&lBoard'
+  
+  # Scoreboard content (supports up to 15 lines)
+  # You can use PlaceholderAPI variables, e.g. %player_name%
+  lines:
+    - '&7&m----------------'
+    - '&f玩家: &a%player_name%'
+    - '&f世界: &a%player_world%'
+    - ' '
+    - '&f在线人数: &a%server_online%/%server_max_players%'
+    - '&f金币: &a%vault_eco_balance_formatted%'
+    - ' '
+    - '&fX: &a%player_x%'
+    - '&fY: &a%player_y%'
+    - '&fZ: &a%player_z%'
+    - ' '
+    - '&7play.azuramc.cc'
+    - '&7&m----------------' 
