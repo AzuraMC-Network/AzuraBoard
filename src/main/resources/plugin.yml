@@ -3,7 +3,7 @@ version: '${version}'
 author: "An5w1r_"
 main: cc.azuramc.azuraboard.AzuraBoard
 api-version: '1.13'
-description: 'Simple scoreboard plugin based on FastBoard with PlaceholderAPI support'
+description: A simple and lightweight scoreboard plugin with multi-language support and PlaceholderAPI integration
 softdepend: [PlaceholderAPI]
 commands:
   azuraboard:

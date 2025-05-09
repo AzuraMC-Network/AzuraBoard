@@ -1,7 +1,6 @@
 package cc.azuramc.azuraboard.manager;
 
 import cc.azuramc.azuraboard.AzuraBoard;
-import cc.azuramc.azuraboard.util.ChatColorUtil;
 import fr.mrmicky.fastboard.FastBoard;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
@@ -91,18 +90,21 @@ public class BoardManager {
      * Toggle a player's scoreboard visibility
      * 
      * @param player The player to toggle the scoreboard for
+     * @return true if the scoreboard is now toggled off, false if it is now visible
      */
-    public void toggleBoard(Player player) {
+    public boolean toggleBoard(Player player) {
         UUID uuid = player.getUniqueId();
         
         if (toggledOff.contains(uuid)) {
             toggledOff.remove(uuid);
             createBoard(player);
-            player.sendMessage(ChatColorUtil.color("&a计分板显示已开启！"));
+            // Scoreboard is now visible (toggled on)
+            return false;
         } else {
             toggledOff.add(uuid);
             removeBoard(player);
-            player.sendMessage(ChatColorUtil.color("&c计分板显示已关闭！"));
+            // Scoreboard is now hidden (toggled off)
+            return true;
         }
     }
     

@@ -1,7 +1,6 @@
 package cc.azuramc.azuraboard.command;
 
 import cc.azuramc.azuraboard.AzuraBoard;
-import cc.azuramc.azuraboard.util.ChatColorUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -82,11 +81,16 @@ public class AzuraBoardCommand implements CommandExecutor, TabCompleter {
      */
     private void handleReloadCommand(CommandSender sender) {
         if (!sender.hasPermission("azuraboard.command")) {
-            sender.sendMessage(ChatColorUtil.color("&c你没有权限执行此命令！"));
+            String langCode = (sender instanceof Player) 
+                ? plugin.getLanguageManager().getPlayerLanguage((Player) sender) 
+                : plugin.getLanguageManager().getDefaultLanguage();
+            
+            sender.sendMessage(plugin.getLanguageManager().getMessage("no-permission", langCode));
             return;
         }
         
         plugin.getConfigManager().reloadConfig();
+        plugin.getLanguageManager().loadLanguages();
         plugin.getBoardManager().reloadTask();
         
         for (Player player : plugin.getServer().getOnlinePlayers()) {
@@ -96,7 +100,11 @@ public class AzuraBoardCommand implements CommandExecutor, TabCompleter {
             }
         }
         
-        sender.sendMessage(ChatColorUtil.color("&aAzuraBoard 配置已重新加载！"));
+        String langCode = (sender instanceof Player) 
+            ? plugin.getLanguageManager().getPlayerLanguage((Player) sender) 
+            : plugin.getLanguageManager().getDefaultLanguage();
+        
+        sender.sendMessage(plugin.getLanguageManager().getMessage("plugin-reload", langCode));
     }
 
     /**
@@ -106,18 +114,24 @@ public class AzuraBoardCommand implements CommandExecutor, TabCompleter {
      */
     private void handleToggleCommand(CommandSender sender) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColorUtil.color("&c此命令只能由玩家执行！"));
+            sender.sendMessage(plugin.getLanguageManager().getMessage("player-only-command"));
             return;
         }
         
         Player player = (Player) sender;
+        String langCode = plugin.getLanguageManager().getPlayerLanguage(player);
         
         if (!player.hasPermission("azuraboard.toggle")) {
-            player.sendMessage(ChatColorUtil.color("&c你没有权限执行此命令！"));
+            player.sendMessage(plugin.getLanguageManager().getMessage("no-permission", langCode));
             return;
         }
         
-        plugin.getBoardManager().toggleBoard(player);
+        boolean isToggled = plugin.getBoardManager().toggleBoard(player);
+        if (isToggled) {
+            player.sendMessage(plugin.getLanguageManager().getMessage("board-disabled", langCode));
+        } else {
+            player.sendMessage(plugin.getLanguageManager().getMessage("board-enabled", langCode));
+        }
     }
 
     /**
@@ -126,10 +140,17 @@ public class AzuraBoardCommand implements CommandExecutor, TabCompleter {
      * @param sender The command sender
      */
     private void sendHelp(CommandSender sender) {
-        sender.sendMessage(ChatColorUtil.color("&b&lAzuraBoard &8- &7v" + plugin.getDescription().getVersion() + " &8- &b计分板 - 指令帮助"));
+        String langCode = (sender instanceof Player) 
+            ? plugin.getLanguageManager().getPlayerLanguage((Player) sender) 
+            : plugin.getLanguageManager().getDefaultLanguage();
+        
+        String header = plugin.getLanguageManager().getFormattedMessage("help.header", langCode, 
+                "version", plugin.getDescription().getVersion());
+        
+        sender.sendMessage(header);
         sender.sendMessage("");
-        sender.sendMessage(ChatColorUtil.color("&7 • &f/ab reload &7Reload plugin config."));
-        sender.sendMessage(ChatColorUtil.color("&7 • &f/ab toggle &7Toggle board"));
+        sender.sendMessage(plugin.getLanguageManager().getMessage("help.reload", langCode));
+        sender.sendMessage(plugin.getLanguageManager().getMessage("help.toggle", langCode));
         sender.sendMessage("");
     }
 

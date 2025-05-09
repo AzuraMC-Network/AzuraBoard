@@ -1,0 +1,25 @@
+# AzuraBoard 中文语言文件 (简体中文)
+# 使用 & 来设置颜色代码，例如: &a&lTitle
+
+messages:
+  # 通用消息
+  no-permission: "&c你没有权限执行此命令！"
+  player-only-command: "&c此命令只能由玩家执行！"
+  plugin-reload: "&aAzuraBoard 配置已重新加载！"
+  board-enabled: "&a已启用计分板！"
+  board-disabled: "&c已禁用计分板！"
+  
+  # 帮助信息
+  help:
+    header: "&b&lAzuraBoard &8- &7v{version} &8- &b计分板 - 指令帮助"
+    reload: "&7 • &f/ab reload &7重载插件配置。"
+    toggle: "&7 • &f/ab toggle &7切换计分板显示。"
+  
+  # 控制台消息
+  console:
+    enabled: "AzuraBoard 插件已成功启用！"
+    disabled: "AzuraBoard 插件已禁用！"
+    placeholder-found: "检测到 PlaceholderAPI，变量将自动处理！"
+    placeholder-not-found: "未找到 PlaceholderAPI，变量将被忽略！"
+    viabackwards-found: "检测到 ViaBackwards，支持低于 1.13 的客户端接收不完整行！"
+    viabackwards-not-found: "未找到 ViaBackwards，对低于 1.13 的客户端接收不完整行的支持将被忽略！" 

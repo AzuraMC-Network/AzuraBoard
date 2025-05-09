@@ -4,6 +4,7 @@ import cc.azuramc.azuraboard.command.AzuraBoardCommand;
 import cc.azuramc.azuraboard.listener.PlayerListener;
 import cc.azuramc.azuraboard.manager.BoardManager;
 import cc.azuramc.azuraboard.manager.ConfigManager;
+import cc.azuramc.azuraboard.manager.LanguageManager;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,6 +26,8 @@ public final class AzuraBoard extends JavaPlugin {
     @Getter
     private BoardManager boardManager;
     @Getter
+    private LanguageManager languageManager;
+    @Getter
     private boolean placeholderApiAvailable;
     @Getter
     private boolean viaBackwardsAvailable;
@@ -35,11 +38,12 @@ public final class AzuraBoard extends JavaPlugin {
 
         loadPluginSupport();
         loadConfig();
+        loadLanguage();
         intiBoardManager();
         registerListeners();
         registerCommands();
 
-        getLogger().info("AzuraBoard plugin has been successfully enabled!");
+        getLogger().info(languageManager.getMessage("console.enabled"));
     }
 
     @Override
@@ -49,7 +53,11 @@ public final class AzuraBoard extends JavaPlugin {
             boardManager.unregisterAll();
         }
         
-        getLogger().info("AzuraBoard plugin has been disabled!");
+        if (languageManager != null) {
+            getLogger().info(languageManager.getMessage("console.disabled"));
+        } else {
+            getLogger().info("AzuraBoard plugin has been disabled!");
+        }
     }
 
     private void loadPluginSupport() {
@@ -72,6 +80,24 @@ public final class AzuraBoard extends JavaPlugin {
     private void loadConfig() {
         this.configManager = new ConfigManager(this);
         configManager.loadConfig();
+    }
+    
+    private void loadLanguage() {
+        this.languageManager = new LanguageManager(this);
+        languageManager.loadLanguages();
+        
+        // Update console messages with language support
+        if (placeholderApiAvailable) {
+            getLogger().info(languageManager.getMessage("console.placeholder-found"));
+        } else {
+            getLogger().info(languageManager.getMessage("console.placeholder-not-found"));
+        }
+
+        if (viaBackwardsAvailable) {
+            getLogger().info(languageManager.getMessage("console.viabackwards-found"));
+        } else {
+            getLogger().info(languageManager.getMessage("console.viabackwards-not-found"));
+        }
     }
 
     private void intiBoardManager() {

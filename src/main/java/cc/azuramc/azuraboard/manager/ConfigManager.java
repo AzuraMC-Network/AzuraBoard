@@ -23,6 +23,7 @@ public class ConfigManager {
     @Getter private List<String> lines;
     @Getter private int updateInterval;
     @Getter private boolean usePlaceholders;
+    @Getter private String defaultLanguage;
 
     /**
      * Constructor for ConfigManager
@@ -45,18 +46,16 @@ public class ConfigManager {
         this.title = ChatColorUtil.color(config.getString("scoreboard.title", "&b&lAzura&f&lBoard"));
         
         // Load lines
-        List<String> configLines = config.getStringList("scoreboard.lines");
-        this.lines = new ArrayList<>();
-        
-        for (String line : configLines) {
-            this.lines.add(ChatColorUtil.color(line));
-        }
+        this.lines = ChatColorUtil.color(config.getStringList("scoreboard.lines"));
         
         // Load update interval
         this.updateInterval = config.getInt("settings.update-interval", 20);
         
         // Load placeholder setting
         this.usePlaceholders = config.getBoolean("settings.use-placeholders", true);
+        
+        // Load language setting
+        this.defaultLanguage = config.getString("settings.language", "en_US");
     }
     
     /**

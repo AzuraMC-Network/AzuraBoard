@@ -56,3 +56,7 @@ processResources {
         expand props
     }
 }
+
+shadowJar {
+    relocate 'fr.mrmicky.fastboard', 'cc.azuramc.azuraboard.base'
+}

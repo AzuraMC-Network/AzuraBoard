@@ -1,0 +1,25 @@
+# AzuraBoard Language File (US English)
+# Use color codes with & to set colors, example: &a&lTitle
+
+messages:
+  # General messages
+  no-permission: "&cYou don't have permission to use this command!"
+  player-only-command: "&cThis command can only be executed by players!"
+  plugin-reload: "&aAzuraBoard configuration has been reloaded!"
+  board-enabled: "&aScoreboard enabled!"
+  board-disabled: "&cScoreboard disabled!"
+  
+  # Help messages
+  help:
+    header: "&b&lAzuraBoard &8- &7v{version} &8- &bScoreboard - Command Help"
+    reload: "&7 • &f/ab reload &7Reload plugin config."
+    toggle: "&7 • &f/ab toggle &7Toggle scoreboard visibility."
+  
+  # Console messages
+  console:
+    enabled: "AzuraBoard plugin has been successfully enabled!"
+    disabled: "AzuraBoard plugin has been disabled!"
+    placeholder-found: "PlaceholderAPI detected, placeholders will be processed automatically!"
+    placeholder-not-found: "PlaceholderAPI not found, placeholders will be ignored!"
+    viabackwards-found: "ViaBackwards detected, support lower 1.13 client receive incomplete lines!"
+    viabackwards-not-found: "ViaBackwards not found, support lower 1.13 client receive incomplete lines will be ignored!" 
