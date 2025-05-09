@@ -1,0 +1,58 @@
+# AzuraBoard Scoreboard Plugin
+
+<div align="center">
+  <img src="https://img.shields.io/badge/Minecraft-1.13%2B-brightgreen.svg" alt="Minecraft 1.13+">
+  <img src="https://img.shields.io/badge/Spigot-Supported-yellow.svg" alt="Spigot Support">
+  <img src="https://img.shields.io/badge/Paper-Supported-yellow.svg" alt="Paper Support">
+  <img src="https://img.shields.io/badge/Dependencies-PlaceholderAPI(Optional)-blue.svg" alt="Dependencies">
+</div>
+
+> A lightweight scoreboard plugin with multi-language support and variable replacement.
+
+[English (Current)](README.md) | [中文](README_zh_CN.md)
+
+## 🌟 Features
+
+- **High Performance**: Built on [FastBoard](https://github.com/MrMicky-FR/FastBoard) library for superior performance
+- **Multi-language Support**: Comes with English and Chinese languages, easily add more
+- **Variable Support**: Works with PlaceholderAPI variables for dynamic content
+- **Auto Language Switching**: Automatically changes UI language based on player's client language
+- **Simple Configuration**: Straightforward config files for easy customization
+- **ViaBackwards Compatible**: Supports clients below 1.13 receiving complete scoreboard information
+
+## 📖 Commands
+
+- `/ab reload` - Reload plugin configuration and language files
+- `/ab toggle` - Toggle scoreboard visibility
+
+## 🛠️ Permissions
+
+- `azuraboard.command` - Allows use of management commands (Default: OP)
+- `azuraboard.toggle` - Allows toggling scoreboard display (Default: Everyone)
+
+## ⚙️ Configuration
+
+Configuration file provides options to customize scoreboard title, content, update interval, and language settings.
+
+Example configuration:
+```yaml
+settings:
+  update-interval: 20 # Update interval in ticks
+  language: "en_US" # Default language
+
+scoreboard:
+  title: '&b&lAzura&f&lBoard' # Scoreboard title
+  lines: # Scoreboard content
+    - '&7&m----------------'
+    - '&fPlayer: &a%player_name%'
+    - '&fWorld: &a%player_world%'
+    # More lines...
+```
+
+## 📋 Language Files
+
+The plugin supports multiple languages. You can add new language support by editing or creating language files.
+
+## 🙏 Acknowledgements
+
+- [FastBoard](https://github.com/MrMicky-FR/FastBoard) - High-performance scoreboard API
