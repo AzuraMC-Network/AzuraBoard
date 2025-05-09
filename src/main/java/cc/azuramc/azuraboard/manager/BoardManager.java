@@ -53,8 +53,20 @@ public class BoardManager {
         if (toggledOff.contains(player.getUniqueId())) {
             return;
         }
-        
-        FastBoard board = new FastBoard(player);
+
+        FastBoard board;
+
+        if (!plugin.isViaBackwardsAvailable()) {
+            board = new FastBoard(player);
+        } else {
+            board = new FastBoard(player) {
+                @Override
+                public boolean hasLinesMaxLength() {
+                    return true;
+                }
+            };
+        }
+
         board.updateTitle(plugin.getConfigManager().getTitle());
         
         boards.put(player.getUniqueId(), board);

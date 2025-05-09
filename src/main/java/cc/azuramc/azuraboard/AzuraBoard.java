@@ -26,31 +26,19 @@ public final class AzuraBoard extends JavaPlugin {
     private BoardManager boardManager;
     @Getter
     private boolean placeholderApiAvailable;
+    @Getter
+    private boolean viaBackwardsAvailable;
 
     @Override
     public void onEnable() {
         instance = this;
 
-        this.placeholderApiAvailable = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
-        if (placeholderApiAvailable) {
-            getLogger().info("PlaceholderAPI detected, placeholders will be processed automatically!");
-        } else {
-            getLogger().info("PlaceholderAPI not found, placeholders will be ignored!");
-        }
-        
-        // Load configuration
-        this.configManager = new ConfigManager(this);
-        configManager.loadConfig();
+        loadPluginSupport();
+        loadConfig();
+        intiBoardManager();
+        registerListeners();
+        registerCommands();
 
-
-        this.boardManager = new BoardManager(this);
-        
-        // Register event listeners
-        getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
-        
-        // Register commands
-        Objects.requireNonNull(getCommand("azuraboard")).setExecutor(new AzuraBoardCommand(this));
-        
         getLogger().info("AzuraBoard plugin has been successfully enabled!");
     }
 
@@ -62,5 +50,39 @@ public final class AzuraBoard extends JavaPlugin {
         }
         
         getLogger().info("AzuraBoard plugin has been disabled!");
+    }
+
+    private void loadPluginSupport() {
+
+        this.placeholderApiAvailable = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
+        if (placeholderApiAvailable) {
+            getLogger().info("PlaceholderAPI detected, placeholders will be processed automatically!");
+        } else {
+            getLogger().info("PlaceholderAPI not found, placeholders will be ignored!");
+        }
+
+        this.viaBackwardsAvailable = Bukkit.getPluginManager().getPlugin("ViaBackwards") != null;
+        if (viaBackwardsAvailable) {
+            getLogger().info("ViaBackwards detected, support lower 1.13 client receive incomplete lines!");
+        } else {
+            getLogger().info("ViaBackwards not found, support lower 1.13 client receive incomplete lines will be ignored!");
+        }
+    }
+
+    private void loadConfig() {
+        this.configManager = new ConfigManager(this);
+        configManager.loadConfig();
+    }
+
+    private void intiBoardManager() {
+        this.boardManager = new BoardManager(this);
+    }
+
+    private void registerListeners() {
+        getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+    }
+
+    private void registerCommands() {
+        Objects.requireNonNull(getCommand("azuraboard")).setExecutor(new AzuraBoardCommand(this));
     }
 }
