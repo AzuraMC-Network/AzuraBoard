@@ -4,6 +4,7 @@ author: "An5w1r_"
 main: cc.azuramc.azuraboard.AzuraBoard
 api-version: '1.13'
 description: A simple and lightweight scoreboard plugin with multi-language support and PlaceholderAPI integration
+website: https://github.com/AzuraMC-Network/AzuraBoard
 softdepend: [PlaceholderAPI]
 commands:
   azuraboard:

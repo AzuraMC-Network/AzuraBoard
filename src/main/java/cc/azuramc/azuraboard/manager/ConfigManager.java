@@ -5,7 +5,6 @@ import cc.azuramc.azuraboard.util.ChatColorUtil;
 import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +23,7 @@ public class ConfigManager {
     @Getter private int updateInterval;
     @Getter private boolean usePlaceholders;
     @Getter private String defaultLanguage;
+    @Getter private boolean enableRgbColors;
 
     /**
      * Constructor for ConfigManager
@@ -56,6 +56,9 @@ public class ConfigManager {
         
         // Load language setting
         this.defaultLanguage = config.getString("settings.language", "en_US");
+        
+        // Load RGB color support setting
+        this.enableRgbColors = config.getBoolean("settings.enable-rgb-colors", true);
     }
     
     /**
@@ -65,5 +68,4 @@ public class ConfigManager {
         plugin.reloadConfig();
         loadConfig();
     }
-
 }

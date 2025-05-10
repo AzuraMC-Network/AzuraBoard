@@ -16,6 +16,7 @@
 - **High Performance**: Built on [FastBoard](https://github.com/MrMicky-FR/FastBoard) library for superior performance
 - **Multi-language Support**: Comes with English and Chinese languages, easily add more
 - **Variable Support**: Works with PlaceholderAPI variables for dynamic content
+- **RGB Color Support**: Supports RGB color codes (&#RRGGBB format) for Minecraft 1.16+
 - **Auto Language Switching**: Automatically changes UI language based on player's client language
 - **Simple Configuration**: Straightforward config files for easy customization
 - **ViaBackwards Compatible**: Supports clients below 1.13 receiving complete scoreboard information
@@ -46,7 +47,9 @@ scoreboard:
     - '&7&m----------------'
     - '&fPlayer: &a%player_name%'
     - '&fWorld: &a%player_world%'
-    # More lines...
+    - ' '
+    - '&#FF5555RGB Color Example' # 1.16+ RGB color code
+    - '&7&m----------------'
 ```
 
 ## 📋 Language Files

@@ -22,4 +22,9 @@ messages:
     placeholder-found: "检测到 PlaceholderAPI，变量将自动处理！"
     placeholder-not-found: "未找到 PlaceholderAPI，变量将被忽略！"
     viabackwards-found: "检测到 ViaBackwards，支持低于 1.13 的客户端接收不完整行！"
-    viabackwards-not-found: "未找到 ViaBackwards，对低于 1.13 的客户端接收不完整行的支持将被忽略！" 
+    viabackwards-not-found: "未找到 ViaBackwards，对低于 1.13 的客户端接收不完整行的支持将被忽略！"
+    
+    # 版本相关信息
+    server-version: "服务器版本: {version}"
+    rgb-supported: "当前服务器版本支持RGB颜色代码 (1.16+)"
+    rgb-unsupported: "当前服务器版本不支持RGB颜色代码，需要Minecraft 1.16或更高版本" 

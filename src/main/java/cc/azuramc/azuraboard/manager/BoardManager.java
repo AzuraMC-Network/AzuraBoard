@@ -53,18 +53,22 @@ public class BoardManager {
             return;
         }
 
-        FastBoard board;
-
-        if (!plugin.isViaBackwardsAvailable()) {
-            board = new FastBoard(player);
-        } else {
-            board = new FastBoard(player) {
-                @Override
-                public boolean hasLinesMaxLength() {
-                    return true;
+        final boolean useRgbSupport = plugin.getConfigManager().isEnableRgbColors();
+        
+        FastBoard board = new FastBoard(player) {
+            @Override
+            public boolean hasLinesMaxLength() {
+                // Return false if RGB support is enabled and ViaBackwards compatibility is needed
+                // This allows sending longer lines to support RGB colors
+                if (plugin.isViaBackwardsAvailable()) {
+                    return false;
                 }
-            };
-        }
+                
+                // Return false if RGB support is enabled (1.16+)
+                // Return true if RGB support is disabled (force limit line length)
+                return !useRgbSupport;
+            }
+        };
 
         board.updateTitle(plugin.getConfigManager().getTitle());
         

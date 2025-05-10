@@ -5,6 +5,7 @@ import cc.azuramc.azuraboard.listener.PlayerListener;
 import cc.azuramc.azuraboard.manager.BoardManager;
 import cc.azuramc.azuraboard.manager.ConfigManager;
 import cc.azuramc.azuraboard.manager.LanguageManager;
+import cc.azuramc.azuraboard.util.VersionUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -36,9 +37,17 @@ public final class AzuraBoard extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        loadPluginSupport();
+        // Load configuration first
         loadConfig();
+        
+        // Load language files
         loadLanguage();
+        
+        // Check server version
+        checkServerVersion();
+        
+        // Load other components
+        loadPluginSupport();
         intiBoardManager();
         registerListeners();
         registerCommands();
@@ -59,21 +68,38 @@ public final class AzuraBoard extends JavaPlugin {
             getLogger().info("AzuraBoard plugin has been disabled!");
         }
     }
+    
+    /**
+     * Check server version and output related information
+     */
+    private void checkServerVersion() {
+        String version = VersionUtil.getServerVersion();
+        boolean supportsRgb = VersionUtil.supportsRgb();
+        
+        // Output server version
+        getLogger().info(languageManager.getFormattedMessage("console.server-version", "version", version));
+        
+        // Output RGB support information from language files
+        if (supportsRgb) {
+            getLogger().info(languageManager.getMessage("console.rgb-supported"));
+        } else {
+            getLogger().info(languageManager.getMessage("console.rgb-unsupported"));
+        }
+    }
 
     private void loadPluginSupport() {
-
         this.placeholderApiAvailable = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
         if (placeholderApiAvailable) {
-            getLogger().info("PlaceholderAPI detected, placeholders will be processed automatically!");
+            getLogger().info(languageManager.getMessage("console.placeholder-found"));
         } else {
-            getLogger().info("PlaceholderAPI not found, placeholders will be ignored!");
+            getLogger().info(languageManager.getMessage("console.placeholder-not-found"));
         }
 
         this.viaBackwardsAvailable = Bukkit.getPluginManager().getPlugin("ViaBackwards") != null;
         if (viaBackwardsAvailable) {
-            getLogger().info("ViaBackwards detected, support lower 1.13 client receive incomplete lines!");
+            getLogger().info(languageManager.getMessage("console.viabackwards-found"));
         } else {
-            getLogger().info("ViaBackwards not found, support lower 1.13 client receive incomplete lines will be ignored!");
+            getLogger().info(languageManager.getMessage("console.viabackwards-not-found"));
         }
     }
 
@@ -85,19 +111,6 @@ public final class AzuraBoard extends JavaPlugin {
     private void loadLanguage() {
         this.languageManager = new LanguageManager(this);
         languageManager.loadLanguages();
-        
-        // Update console messages with language support
-        if (placeholderApiAvailable) {
-            getLogger().info(languageManager.getMessage("console.placeholder-found"));
-        } else {
-            getLogger().info(languageManager.getMessage("console.placeholder-not-found"));
-        }
-
-        if (viaBackwardsAvailable) {
-            getLogger().info(languageManager.getMessage("console.viabackwards-found"));
-        } else {
-            getLogger().info(languageManager.getMessage("console.viabackwards-not-found"));
-        }
     }
 
     private void intiBoardManager() {
