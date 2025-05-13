@@ -1,6 +1,7 @@
 package cc.azuramc.azuraboard.listener;
 
 import cc.azuramc.azuraboard.AzuraBoard;
+import cc.azuramc.azuraboard.util.FoliaUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -38,9 +39,8 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        
-        // Delay scoreboard creation to ensure player is fully loaded
-        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+
+        FoliaUtil.runTaskLater(plugin, () -> {
             plugin.getBoardManager().createBoard(player);
         }, 5L);
     }

@@ -1,6 +1,7 @@
 package cc.azuramc.azuraboard.manager;
 
 import cc.azuramc.azuraboard.AzuraBoard;
+import cc.azuramc.azuraboard.util.FoliaUtil;
 import fr.mrmicky.fastboard.FastBoard;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
@@ -26,8 +27,8 @@ public class BoardManager {
     /** Set of player UUIDs with disabled scoreboards */
     private final Set<UUID> toggledOff;
     
-    /** Bukkit task for updating scoreboards */
-    private BukkitTask updateTask;
+    /** Task for updating scoreboards (BukkitTask or Folia ScheduledTask) */
+    private Object updateTask;
 
     /**
      * Constructor for BoardManager
@@ -145,7 +146,13 @@ public class BoardManager {
      */
     public void updateAllBoards() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            updateBoard(player);
+            if (plugin.isFoliaServer()) {
+                if (player.isOnline()) {
+                    FoliaUtil.runTask(plugin, () -> updateBoard(player));
+                }
+            } else {
+                updateBoard(player);
+            }
         }
     }
     
@@ -161,7 +168,7 @@ public class BoardManager {
         boards.clear();
         
         if (updateTask != null) {
-            updateTask.cancel();
+            FoliaUtil.cancelTask(updateTask);
             updateTask = null;
         }
     }
@@ -171,8 +178,8 @@ public class BoardManager {
      */
     private void startTask() {
         int interval = plugin.getConfigManager().getUpdateInterval();
-        
-        updateTask = Bukkit.getScheduler().runTaskTimer(plugin, this::updateAllBoards, 20L, interval);
+
+        updateTask = FoliaUtil.runTaskTimer(plugin, this::updateAllBoards, 20L, interval);
     }
     
     /**
@@ -181,7 +188,7 @@ public class BoardManager {
      */
     public void reloadTask() {
         if (updateTask != null) {
-            updateTask.cancel();
+            FoliaUtil.cancelTask(updateTask);
         }
         
         startTask();

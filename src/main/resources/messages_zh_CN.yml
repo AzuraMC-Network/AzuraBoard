@@ -17,14 +17,13 @@ messages:
   
   # 控制台消息
   console:
-    enabled: "AzuraBoard 插件已成功启用！"
+    enabled: "AzuraBoard 插件已启用！"
     disabled: "AzuraBoard 插件已禁用！"
-    placeholder-found: "检测到 PlaceholderAPI，变量将自动处理！"
-    placeholder-not-found: "未找到 PlaceholderAPI，变量将被忽略！"
-    viabackwards-found: "检测到 ViaBackwards，支持低于 1.13 的客户端接收不完整行！"
-    viabackwards-not-found: "未找到 ViaBackwards，对低于 1.13 的客户端接收不完整行的支持将被忽略！"
-    
-    # 版本相关信息
-    server-version: "服务器版本: {version}"
-    rgb-supported: "当前服务器版本支持RGB颜色代码 (1.16+)"
-    rgb-unsupported: "当前服务器版本不支持RGB颜色代码，需要Minecraft 1.16或更高版本" 
+    placeholder-found: "已检测到 PlaceholderAPI，变量将被自动处理！"
+    placeholder-not-found: "未检测到 PlaceholderAPI，变量将被忽略！"
+    server-version: "检测到服务器版本: %version%"
+    rgb-supported: "此服务器支持RGB颜色代码（1.16+）"
+    rgb-unsupported: "此服务器不支持RGB颜色代码，需要Minecraft 1.16+"
+    viabackwards-found: "已检测到 ViaBackwards，将支持所有客户端接收RGB颜色！"
+    viabackwards-not-found: "未检测到 ViaBackwards，旧版本客户端可能无法正确显示RGB颜色！"
+    folia-detected: "检测到Folia服务器！使用Folia兼容的区域化线程处理。"

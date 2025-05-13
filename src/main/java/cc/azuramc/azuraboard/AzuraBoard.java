@@ -5,6 +5,8 @@ import cc.azuramc.azuraboard.listener.PlayerListener;
 import cc.azuramc.azuraboard.manager.BoardManager;
 import cc.azuramc.azuraboard.manager.ConfigManager;
 import cc.azuramc.azuraboard.manager.LanguageManager;
+import cc.azuramc.azuraboard.util.FoliaUtil;
+import cc.azuramc.azuraboard.util.Metrics;
 import cc.azuramc.azuraboard.util.VersionUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -32,6 +34,8 @@ public final class AzuraBoard extends JavaPlugin {
     private boolean placeholderApiAvailable;
     @Getter
     private boolean viaBackwardsAvailable;
+    @Getter
+    private boolean foliaServer;
 
     @Override
     public void onEnable() {
@@ -51,6 +55,9 @@ public final class AzuraBoard extends JavaPlugin {
         intiBoardManager();
         registerListeners();
         registerCommands();
+
+        // load bStats
+        loadMetrics();
 
         getLogger().info(languageManager.getMessage("console.enabled"));
     }
@@ -73,6 +80,12 @@ public final class AzuraBoard extends JavaPlugin {
      * Check server version and output related information
      */
     private void checkServerVersion() {
+        // Check if server is running Folia
+        this.foliaServer = FoliaUtil.isFolia;
+        if (foliaServer) {
+            getLogger().info(languageManager.getMessage("console.folia-detected"));
+        }
+
         String version = VersionUtil.getServerVersion();
         boolean supportsRgb = VersionUtil.supportsRgb();
         
@@ -123,5 +136,9 @@ public final class AzuraBoard extends JavaPlugin {
 
     private void registerCommands() {
         Objects.requireNonNull(getCommand("azuraboard")).setExecutor(new AzuraBoardCommand(this));
+    }
+
+    private void loadMetrics() {
+        new Metrics(this, 25845);
     }
 }

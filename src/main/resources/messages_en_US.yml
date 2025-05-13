@@ -17,14 +17,13 @@ messages:
   
   # Console messages
   console:
-    enabled: "AzuraBoard plugin has been successfully enabled!"
-    disabled: "AzuraBoard plugin has been disabled!"
-    placeholder-found: "PlaceholderAPI detected, placeholders will be processed automatically!"
-    placeholder-not-found: "PlaceholderAPI not found, placeholders will be ignored!"
-    viabackwards-found: "ViaBackwards detected, support lower 1.13 client receive incomplete lines!"
-    viabackwards-not-found: "ViaBackwards not found, support lower 1.13 client receive incomplete lines will be ignored!"
-    
-    # Version-related messages
-    server-version: "Server version: {version}"
-    rgb-supported: "This server version supports RGB color codes (1.16+)"
-    rgb-unsupported: "This server version doesn't support RGB color codes, Minecraft 1.16+ is required" 
+    enabled: "AzuraBoard has been enabled!"
+    disabled: "AzuraBoard has been disabled!"
+    placeholder-found: "PlaceholderAPI found, placeholders will be processed."
+    placeholder-not-found: "PlaceholderAPI not found, placeholders will not be processed."
+    server-version: "Server version detected: %version%"
+    rgb-supported: "RGB colors are supported on this server (1.16+)."
+    rgb-unsupported: "RGB colors are not supported on this server (< 1.16)."
+    viabackwards-found: "ViaBackwards found, RGB colors will be supported for all clients."
+    viabackwards-not-found: "ViaBackwards not found, RGB colors may not be supported for older clients."
+    folia-detected: "Folia server detected! Using Folia-compatible regionized threading."

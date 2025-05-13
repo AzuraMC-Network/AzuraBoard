@@ -4,6 +4,7 @@
   <img src="https://img.shields.io/badge/Minecraft-1.13%2B-brightgreen.svg" alt="Minecraft 1.13+">
   <img src="https://img.shields.io/badge/Spigot-Supported-yellow.svg" alt="Spigot Support">
   <img src="https://img.shields.io/badge/Paper-Supported-yellow.svg" alt="Paper Support">
+  <img src="https://img.shields.io/badge/Folia-Supported-green.svg" alt="Folia Support">
   <img src="https://img.shields.io/badge/Dependencies-PlaceholderAPI(Optional)-blue.svg" alt="Dependencies">
 </div>
 
@@ -20,6 +21,7 @@
 - **Auto Language Switching**: Automatically changes UI language based on player's client language
 - **Simple Configuration**: Straightforward config files for easy customization
 - **ViaBackwards Compatible**: Supports clients below 1.13 receiving complete scoreboard information
+- **Folia Compatible**: Full support for Folia's regionalized thread scheduling system
 
 ## 📖 Commands
 
