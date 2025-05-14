@@ -61,3 +61,45 @@ scoreboard:
 ## 🙏 致谢
 
 - [FastBoard](https://github.com/MrMicky-FR/FastBoard) - 提供高性能计分板API
+
+## 构建
+
+AzuraBoard 支持两种构建模式：
+
+1. **标准构建 (Java 8)**
+   - 不包含Folia相关代码
+   - 适用于标准的Bukkit/Spigot/Paper服务器
+   - 构建命令：
+     ```bash
+     # Windows
+     gradlew.bat buildBukkit
+     
+     # Linux/macOS
+     ./gradlew buildBukkit
+     ```
+   - 输出文件: `build/libs/AzuraBoard-版本号-bukkit.jar`
+
+2. **Folia支持构建 (Java 17)**
+   - 包含Folia API支持
+   - 适用于Folia服务器和标准服务器
+   - 构建命令：
+     ```bash
+     # Windows
+     gradlew.bat buildFolia
+     
+     # Linux/macOS
+     ./gradlew buildFolia
+     ```
+   - 输出文件: `build/libs/AzuraBoard-版本号-folia.jar`
+
+### 其他构建命令
+
+```bash
+# 显示构建系统帮助
+./gradlew buildHelp
+
+# 显示所有可用的构建选项
+./gradlew buildAll
+```
+
+> **注意**：当直接使用 shadowJar 任务并附加 `-PuseFolia=true` 参数时，请确保之前的构建没有修改配置。建议使用专门的 `buildBukkit` 和 `buildFolia` 任务来确保正确构建。

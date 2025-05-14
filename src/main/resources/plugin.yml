@@ -6,7 +6,7 @@ api-version: '1.13'
 description: A simple and lightweight scoreboard plugin with multi-language support and PlaceholderAPI integration
 website: https://github.com/AzuraMC-Network/AzuraBoard
 softdepend: [PlaceholderAPI]
-folia-supported: true
+folia-supported: ${useFolia}
 commands:
   azuraboard:
     description: Main command for AzuraBoard plugin

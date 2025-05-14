@@ -61,3 +61,45 @@ The plugin supports multiple languages. You can add new language support by edit
 ## 🙏 Acknowledgements
 
 - [FastBoard](https://github.com/MrMicky-FR/FastBoard) - High-performance scoreboard API
+
+## Building
+
+AzuraBoard supports two build modes:
+
+1. **Standard Build (Java 8)**
+   - Does not include Folia-specific code
+   - Suitable for standard Bukkit/Spigot/Paper servers
+   - Build command:
+     ```bash
+     # Windows
+     gradlew.bat buildBukkit
+     
+     # Linux/macOS
+     ./gradlew buildBukkit
+     ```
+   - Output: `build/libs/AzuraBoard-version-bukkit.jar`
+
+2. **Folia Support Build (Java 17)**
+   - Includes Folia API support
+   - Suitable for both Folia servers and standard servers
+   - Build command:
+     ```bash
+     # Windows
+     gradlew.bat buildFolia
+     
+     # Linux/macOS
+     ./gradlew buildFolia
+     ```
+   - Output: `build/libs/AzuraBoard-version-folia.jar`
+
+### Additional Build Commands
+
+```bash
+# Show build help
+./gradlew buildHelp
+
+# Show all available build options
+./gradlew buildAll
+```
+
+> **Note**: When using the direct shadowJar task with `-PuseFolia=true`, make sure no previous builds have modified the configuration. It's safer to use the dedicated `buildBukkit` and `buildFolia` tasks.
