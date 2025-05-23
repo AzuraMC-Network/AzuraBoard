@@ -71,11 +71,7 @@ AzuraBoard supports two build modes:
    - Suitable for standard Bukkit/Spigot/Paper servers
    - Build command:
      ```bash
-     # Windows
-     gradlew.bat buildBukkit
-     
-     # Linux/macOS
-     ./gradlew buildBukkit
+     ./gradlew shadowJar -PuseFolia=false
      ```
    - Output: `build/libs/AzuraBoard-version-bukkit.jar`
 
@@ -84,11 +80,7 @@ AzuraBoard supports two build modes:
    - Suitable for both Folia servers and standard servers
    - Build command:
      ```bash
-     # Windows
-     gradlew.bat buildFolia
-     
-     # Linux/macOS
-     ./gradlew buildFolia
+     ./gradlew shadowJar -PuseFolia=true
      ```
    - Output: `build/libs/AzuraBoard-version-folia.jar`
 
