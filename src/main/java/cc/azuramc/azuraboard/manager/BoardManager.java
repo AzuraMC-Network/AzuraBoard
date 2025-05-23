@@ -1,12 +1,11 @@
 package cc.azuramc.azuraboard.manager;
 
 import cc.azuramc.azuraboard.AzuraBoard;
-import cc.azuramc.azuraboard.util.FoliaUtil;
+import cc.azuramc.azuraboard.util.SchedulerUtil;
 import fr.mrmicky.fastboard.FastBoard;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -148,7 +147,7 @@ public class BoardManager {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (plugin.isFoliaServer()) {
                 if (player.isOnline()) {
-                    FoliaUtil.runTask(plugin, () -> updateBoard(player));
+                    SchedulerUtil.runTask(plugin, () -> updateBoard(player));
                 }
             } else {
                 updateBoard(player);
@@ -168,7 +167,7 @@ public class BoardManager {
         boards.clear();
         
         if (updateTask != null) {
-            FoliaUtil.cancelTask(updateTask);
+            SchedulerUtil.cancelTask(updateTask);
             updateTask = null;
         }
     }
@@ -179,7 +178,7 @@ public class BoardManager {
     private void startTask() {
         int interval = plugin.getConfigManager().getUpdateInterval();
 
-        updateTask = FoliaUtil.runTaskTimer(plugin, this::updateAllBoards, 20L, interval);
+        updateTask = SchedulerUtil.runTaskTimer(plugin, this::updateAllBoards, 20L, interval);
     }
     
     /**
@@ -188,7 +187,7 @@ public class BoardManager {
      */
     public void reloadTask() {
         if (updateTask != null) {
-            FoliaUtil.cancelTask(updateTask);
+            SchedulerUtil.cancelTask(updateTask);
         }
         
         startTask();

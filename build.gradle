@@ -65,10 +65,12 @@ java {
 tasks.register('generateSchedulerFactoryBukkit') {
     doLast {
         println "=== Generating factory for Bukkit build ==="
-        def factoryDir = new File(project.projectDir, 'src/main/java/cc/azuramc/azuraboard/util')
+        def factoryDir = new File(project.projectDir, 'src/main/java/cc/azuramc/azuraboard/scheduler')
         def factoryFile = new File(factoryDir, 'GeneratedSchedulerFactory.java')
         
-        factoryFile.text = """package cc.azuramc.azuraboard.util;
+        factoryFile.text = """package cc.azuramc.azuraboard.scheduler;
+
+import cc.azuramc.azuraboard.scheduler.impl.BukkitCompatImpl;
 
 /**
  * GENERATED FILE - DO NOT EDIT
@@ -88,12 +90,12 @@ public class GeneratedSchedulerFactory {
 tasks.register('generateSchedulerFactoryFolia') {
     doLast {
         println "=== Generating factory for Folia build ==="
-        def factoryDir = new File(project.projectDir, 'src/main/java/cc/azuramc/azuraboard/util')
+        def factoryDir = new File(project.projectDir, 'src/main/java/cc/azuramc/azuraboard/scheduler')
         def factoryFile = new File(factoryDir, 'GeneratedSchedulerFactory.java')
         
-        factoryFile.text = """package cc.azuramc.azuraboard.util;
+        factoryFile.text = """package cc.azuramc.azuraboard.scheduler;
 
-import cc.azuramc.azuraboard.folia.FoliaCompatImpl;
+import cc.azuramc.azuraboard.scheduler.impl.FoliaCompatImpl;
 
 /**
  * GENERATED FILE - DO NOT EDIT
@@ -119,7 +121,7 @@ public class GeneratedSchedulerFactory {
 // Update SchedulerFactory file to use the generated factory implementation
 tasks.register('updateSchedulerFactory') {
     doLast {
-        def factoryFile = new File(project.projectDir, 'src/main/java/cc/azuramc/azuraboard/util/SchedulerFactory.java')
+        def factoryFile = new File(project.projectDir, 'src/main/java/cc/azuramc/azuraboard/scheduler/SchedulerFactory.java')
         def content = factoryFile.text
         
         // Update instance creation logic
@@ -148,7 +150,7 @@ sourceSets {
     main {
         java {
             if (!useFolia) {
-                exclude 'cc/azuramc/azuraboard/folia/**'
+                exclude 'cc/azuramc/azuraboard/scheduler/impl/FoliaCompatImpl.java'
             }
         }
     }
@@ -186,7 +188,7 @@ tasks.register('buildBukkit') {
         
         // Apply source filtering to exclude Folia code
         sourceSets.main.java.excludes.clear()
-        sourceSets.main.java.excludes.add('cc/azuramc/azuraboard/folia/**')
+        sourceSets.main.java.excludes.add('cc/azuramc/azuraboard/scheduler/impl/FoliaCompatImpl.java')
         
         // Make sure the classifier is set correctly
         tasks.shadowJar.archiveClassifier.set('bukkit')

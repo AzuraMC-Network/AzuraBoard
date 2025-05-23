@@ -1,5 +1,7 @@
 package cc.azuramc.azuraboard.util;
 
+import cc.azuramc.azuraboard.scheduler.SchedulerCompat;
+import cc.azuramc.azuraboard.scheduler.SchedulerFactory;
 import org.bukkit.plugin.Plugin;
 
 /**
@@ -8,7 +10,7 @@ import org.bukkit.plugin.Plugin;
  *
  * @author an5w1r@163.com
  */
-public class FoliaUtil {
+public class SchedulerUtil {
 
     private static final SchedulerCompat scheduler = SchedulerFactory.getScheduler();
     

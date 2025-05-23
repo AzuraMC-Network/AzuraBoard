@@ -1,5 +1,6 @@
-package cc.azuramc.azuraboard.util;
+package cc.azuramc.azuraboard.scheduler.impl;
 
+import cc.azuramc.azuraboard.scheduler.SchedulerCompat;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 

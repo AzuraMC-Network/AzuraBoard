@@ -1,7 +1,7 @@
 package cc.azuramc.azuraboard.listener;
 
 import cc.azuramc.azuraboard.AzuraBoard;
-import cc.azuramc.azuraboard.util.FoliaUtil;
+import cc.azuramc.azuraboard.util.SchedulerUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -40,7 +40,7 @@ public class PlayerListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        FoliaUtil.runTaskLater(plugin, () -> {
+        SchedulerUtil.runTaskLater(plugin, () -> {
             plugin.getBoardManager().createBoard(player);
         }, 5L);
     }

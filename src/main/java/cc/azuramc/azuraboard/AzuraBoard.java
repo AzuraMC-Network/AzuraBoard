@@ -5,7 +5,7 @@ import cc.azuramc.azuraboard.listener.PlayerListener;
 import cc.azuramc.azuraboard.manager.BoardManager;
 import cc.azuramc.azuraboard.manager.ConfigManager;
 import cc.azuramc.azuraboard.manager.LanguageManager;
-import cc.azuramc.azuraboard.util.FoliaUtil;
+import cc.azuramc.azuraboard.util.SchedulerUtil;
 import cc.azuramc.azuraboard.util.Metrics;
 import cc.azuramc.azuraboard.util.VersionUtil;
 import lombok.Getter;
@@ -81,7 +81,7 @@ public final class AzuraBoard extends JavaPlugin {
      */
     private void checkServerVersion() {
         // Check if server is running Folia
-        this.foliaServer = FoliaUtil.isFolia;
+        this.foliaServer = SchedulerUtil.isFolia;
         if (foliaServer) {
             getLogger().info(languageManager.getMessage("console.folia-detected"));
         }

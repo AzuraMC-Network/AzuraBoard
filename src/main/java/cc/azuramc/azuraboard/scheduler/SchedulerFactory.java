@@ -1,4 +1,4 @@
-package cc.azuramc.azuraboard.util;
+package cc.azuramc.azuraboard.scheduler;
 
 /**
  * Factory class to get the appropriate scheduler implementation
