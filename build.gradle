@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'cc.azuramc'
-version = '1.2'
+version = '1.2.1'
 
 // Build type properties
 ext {
@@ -47,7 +47,7 @@ dependencies {
     }
 
     compileOnly 'me.clip:placeholderapi:2.11.6'
-    implementation 'fr.mrmicky:fastboard:2.1.4'
+    implementation 'fr.mrmicky:fastboard:2.1.6'
     compileOnly 'org.projectlombok:lombok:1.18.34'
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
 }
