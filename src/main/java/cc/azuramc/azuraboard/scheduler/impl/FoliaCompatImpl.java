@@ -19,9 +19,14 @@ public class FoliaCompatImpl implements SchedulerCompat {
         try {
             Class.forName("io.papermc.paper.threadedregions.RegionizedServer");
             return true;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
+        } catch (ClassNotFoundException ignored) {}
+
+        try {
+            Class.forName("me.earthme.luminol.api.ThreadedRegion");
+            return true;
+        } catch (ClassNotFoundException ignored) {}
+
+        return false;
     }
 
     @Override

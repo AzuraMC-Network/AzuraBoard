@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'cc.azuramc'
-version = '1.2.1'
+version = '1.2.2'
 
 // Build type properties
 ext {
@@ -96,6 +96,7 @@ tasks.register('generateSchedulerFactoryFolia') {
         factoryFile.text = """package cc.azuramc.azuraboard.scheduler;
 
 import cc.azuramc.azuraboard.scheduler.impl.FoliaCompatImpl;
+import cc.azuramc.azuraboard.scheduler.impl.BukkitCompatImpl;
 
 /**
  * GENERATED FILE - DO NOT EDIT
@@ -105,13 +106,16 @@ public class GeneratedSchedulerFactory {
     
     public static SchedulerCompat createSchedulerImpl() {
         try {
-            // Try to create FoliaCompatImpl if available
             Class.forName("io.papermc.paper.threadedregions.RegionizedServer");
             return new FoliaCompatImpl();
-        } catch (ClassNotFoundException e) {
-            // Fallback to standard implementation
-            return new BukkitCompatImpl();
-        }
+        } catch (ClassNotFoundException ignored) {}
+
+        try {
+            Class.forName("me.earthme.luminol.api.ThreadedRegion");
+            return new FoliaCompatImpl();
+        } catch (ClassNotFoundException ignored) {}
+
+        return new BukkitCompatImpl();
     }
 }
 """

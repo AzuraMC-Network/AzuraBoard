@@ -40,9 +40,7 @@ public class PlayerListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        SchedulerUtil.runTaskLater(plugin, () -> {
-            plugin.getBoardManager().createBoard(player);
-        }, 5L);
+        SchedulerUtil.runTaskLater(plugin, () -> plugin.getBoardManager().createBoard(player), 5L);
     }
 
     /**

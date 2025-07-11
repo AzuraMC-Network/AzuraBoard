@@ -71,6 +71,7 @@ AzuraBoard 支持两种构建模式：
    - 适用于标准的Bukkit/Spigot/Paper服务器
    - 构建命令：
      ```bash
+     ./gradlew buildBukkit
      ./gradlew shadowJar -PuseFolia=false
      ```
    - 输出文件: `build/libs/AzuraBoard-版本号-bukkit.jar`
@@ -80,6 +81,7 @@ AzuraBoard 支持两种构建模式：
    - 适用于Folia服务器和标准服务器
    - 构建命令：
      ```bash
+     ./gradlew buildFolia
      ./gradlew shadowJar -PuseFolia=true
      ```
    - 输出文件: `build/libs/AzuraBoard-版本号-folia.jar`
