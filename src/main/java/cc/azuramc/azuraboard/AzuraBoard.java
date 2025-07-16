@@ -94,7 +94,7 @@ public final class AzuraBoard extends JavaPlugin {
         boolean supportsRgb = VersionUtil.isSupportsRgb;
         
         // Output server version
-        getLogger().info(languageManager.getFormattedMessage("console.server-version", "%version%", version));
+        getLogger().info(languageManager.getMessage("console.server-version", configManager.getDefaultLanguage()).replace("%version%", version));
         
         // Output RGB support information from language files
         if (supportsRgb) {
