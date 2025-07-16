@@ -5,7 +5,6 @@ settings:
   update-interval: 20 # Update interval in ticks
   # Note: PlaceholderAPI support is automatically enabled if the plugin is detected
   language: "en_US" # Language setting (en_US, zh_CN, etc.)
-  enable-rgb-colors: true # Set to false to disable RGB color support (even on 1.16+ servers)
 
 scoreboard:
   # Scoreboard title

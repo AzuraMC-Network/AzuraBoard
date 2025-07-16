@@ -2,6 +2,7 @@ package cc.azuramc.azuraboard.manager;
 
 import cc.azuramc.azuraboard.AzuraBoard;
 import cc.azuramc.azuraboard.util.SchedulerUtil;
+import cc.azuramc.azuraboard.util.VersionUtil;
 import fr.mrmicky.fastboard.FastBoard;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
@@ -52,8 +53,6 @@ public class BoardManager {
         if (toggledOff.contains(player.getUniqueId())) {
             return;
         }
-
-        final boolean useRgbSupport = plugin.getConfigManager().isEnableRgbColors();
         
         FastBoard board = new FastBoard(player) {
             @Override
@@ -66,14 +65,14 @@ public class BoardManager {
                 
                 // Return false if RGB support is enabled (1.16+)
                 // Return true if RGB support is disabled (force limit line length)
-                return !useRgbSupport;
+                return !VersionUtil.isSupportsRgb;
             }
         };
 
         try {
             board.updateTitle(plugin.getConfigManager().getTitle());
         } catch (IllegalArgumentException e) {
-            Bukkit.getLogger().warning(e.getMessage());
+            Bukkit.getLogger().warning(e.getMessage() + " plz fix it in config.yml");
         }
 
         boards.put(player.getUniqueId(), board);
@@ -135,7 +134,7 @@ public class BoardManager {
                 try {
                     line = PlaceholderAPI.setPlaceholders(player, line);
                 } catch (Exception e) {
-                    plugin.getLogger().warning("Failed to process placeholders: " + e.getMessage());
+                    plugin.getLogger().warning(e.getMessage() + " plz fix it in config.yml");
                 }
             }
             lines.add(line);
@@ -144,7 +143,7 @@ public class BoardManager {
         try {
             board.updateLines(lines.toArray(new String[0]));
         } catch (IllegalArgumentException e) {
-            Bukkit.getLogger().warning(e.getMessage());
+            Bukkit.getLogger().warning(e.getMessage() + " plz fix it in config.yml");
         }
     }
     

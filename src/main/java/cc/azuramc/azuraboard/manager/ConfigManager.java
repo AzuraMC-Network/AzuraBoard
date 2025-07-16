@@ -23,7 +23,6 @@ public class ConfigManager {
     @Getter private int updateInterval;
     @Getter private boolean usePlaceholders;
     @Getter private String defaultLanguage;
-    @Getter private boolean enableRgbColors;
 
     /**
      * Constructor for ConfigManager
@@ -41,18 +40,12 @@ public class ConfigManager {
         plugin.saveDefaultConfig();
         plugin.reloadConfig();
         this.config = plugin.getConfig();
-
-        // Load RGB color support setting
-        this.enableRgbColors = config.getBoolean("settings.enable-rgb-colors", true);
-
-        // Load RGB support first or error : <
-        plugin.setChatColorUtil(new ChatColorUtil(enableRgbColors));
         
         // Load title
-        this.title = plugin.getChatColorUtil().color(config.getString("scoreboard.title", "&b&lAzura&f&lBoard"));
+        this.title = ChatColorUtil.color(config.getString("scoreboard.title", "&b&lAzura&f&lBoard"));
         
         // Load lines
-        this.lines = plugin.getChatColorUtil().color(config.getStringList("scoreboard.lines"));
+        this.lines = ChatColorUtil.color(config.getStringList("scoreboard.lines"));
         
         // Load update interval
         this.updateInterval = config.getInt("settings.update-interval", 20);

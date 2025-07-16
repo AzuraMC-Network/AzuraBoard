@@ -38,8 +38,6 @@ public final class AzuraBoard extends JavaPlugin {
     private boolean viaBackwardsAvailable;
     @Getter
     private boolean foliaServer;
-    @Getter @Setter
-    private ChatColorUtil chatColorUtil;
 
     @Override
     public void onEnable() {

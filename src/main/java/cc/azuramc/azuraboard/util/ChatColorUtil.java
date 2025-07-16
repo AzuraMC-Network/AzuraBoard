@@ -15,16 +15,10 @@ import java.util.regex.Pattern;
  */
 public final class ChatColorUtil {
 
-    public boolean rgbEnabled;
+    private static final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{6})");
 
-    private final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{6})");
+    private static final Pattern HEX_PATTERN_2 = Pattern.compile("\\{#([A-Fa-f0-9]{6})}");
 
-    private final Pattern HEX_PATTERN_2 = Pattern.compile("\\{#([A-Fa-f0-9]{6})}");
-
-
-    public ChatColorUtil(Boolean rgbEnabled) {
-       this.rgbEnabled = rgbEnabled;
-    }
     
     /**
      * Convert RGB hex color codes to Minecraft supported format
@@ -32,7 +26,7 @@ public final class ChatColorUtil {
      * @param message The message containing hex color codes
      * @return The converted message
      */
-    private String translateHexColorCodes(String message) {
+    private static String translateHexColorCodes(String message) {
         if (message == null) {
             return "";
         }
@@ -83,12 +77,9 @@ public final class ChatColorUtil {
      * 
      * @return true if RGB colors are supported by the server (1.16+) and enabled in config
      */
-    private boolean isRgbSupported() {
+    private static boolean isRgbSupported() {
         // Check if RGB is supported by the server
-        boolean serverSupportsRgb = VersionUtil.isSupportsRgb;
-        
-        // Return true only if both conditions are met
-        return serverSupportsRgb && rgbEnabled;
+        return VersionUtil.isSupportsRgb;
     }
 
     /**
@@ -99,7 +90,7 @@ public final class ChatColorUtil {
      * @param string The string to colorize
      * @return The colorized string, or empty string if input is null
      */
-    public String color(String string) {
+    public static String color(String string) {
         if (string == null) {
             return "";
         }
@@ -117,7 +108,7 @@ public final class ChatColorUtil {
      * @param lines The list of strings to colorize
      * @return The list of colorized strings, or empty list if input is null
      */
-    public List<String> color(List<String> lines) {
+    public static List<String> color(List<String> lines) {
         List<String> toReturn = new ArrayList<>();
         
         if (lines == null) {
@@ -143,7 +134,7 @@ public final class ChatColorUtil {
      * @param lines The array of strings to colorize
      * @return The array of colorized strings, or empty array if input is null
      */
-    public String[] color(String[] lines) {
+    public static String[] color(String[] lines) {
         if (lines == null) {
             return new String[0];
         }
