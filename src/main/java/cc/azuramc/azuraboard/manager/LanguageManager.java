@@ -1,7 +1,6 @@
 package cc.azuramc.azuraboard.manager;
 
 import cc.azuramc.azuraboard.AzuraBoard;
-import cc.azuramc.azuraboard.util.ChatColorUtil;
 import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -148,7 +147,7 @@ public class LanguageManager {
         }
         
         String message = lang.getString("messages." + path, path);
-        return ChatColorUtil.color(message);
+        return plugin.getChatColorUtil().color(message);
     }
     
     /**

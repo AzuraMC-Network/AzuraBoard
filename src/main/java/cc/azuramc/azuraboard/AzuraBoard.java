@@ -5,10 +5,12 @@ import cc.azuramc.azuraboard.listener.PlayerListener;
 import cc.azuramc.azuraboard.manager.BoardManager;
 import cc.azuramc.azuraboard.manager.ConfigManager;
 import cc.azuramc.azuraboard.manager.LanguageManager;
+import cc.azuramc.azuraboard.util.ChatColorUtil;
 import cc.azuramc.azuraboard.util.SchedulerUtil;
 import cc.azuramc.azuraboard.util.Metrics;
 import cc.azuramc.azuraboard.util.VersionUtil;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -36,6 +38,8 @@ public final class AzuraBoard extends JavaPlugin {
     private boolean viaBackwardsAvailable;
     @Getter
     private boolean foliaServer;
+    @Getter @Setter
+    private ChatColorUtil chatColorUtil;
 
     @Override
     public void onEnable() {
@@ -87,10 +91,10 @@ public final class AzuraBoard extends JavaPlugin {
         }
 
         String version = VersionUtil.getServerVersion();
-        boolean supportsRgb = VersionUtil.supportsRgb();
+        boolean supportsRgb = VersionUtil.isSupportsRgb;
         
         // Output server version
-        getLogger().info(languageManager.getFormattedMessage("console.server-version", "version", version));
+        getLogger().info(languageManager.getFormattedMessage("console.server-version", "%version%", version));
         
         // Output RGB support information from language files
         if (supportsRgb) {

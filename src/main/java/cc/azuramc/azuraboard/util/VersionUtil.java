@@ -9,21 +9,9 @@ import org.bukkit.Bukkit;
  */
 public final class VersionUtil {
 
-    private static Boolean supportsRgb = null;
+    public static Boolean isSupportsRgb = checkVersion(1, 16);;
     private static Integer majorVersion = null;
     private static Integer minorVersion = null;
-
-    /**
-     * Check if the server supports RGB colors (Minecraft 1.16+)
-     * 
-     * @return true if the server version is 1.16 or higher, false otherwise
-     */
-    public static boolean supportsRgb() {
-        if (supportsRgb == null) {
-            supportsRgb = checkVersion(1, 16);
-        }
-        return supportsRgb;
-    }
 
     /**
      * Check if the server version is greater than or equal to the specified version
