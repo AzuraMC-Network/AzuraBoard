@@ -70,8 +70,12 @@ public class BoardManager {
             }
         };
 
-        board.updateTitle(plugin.getConfigManager().getTitle());
-        
+        try {
+            board.updateTitle(plugin.getConfigManager().getTitle());
+        } catch (IllegalArgumentException e) {
+            Bukkit.getLogger().warning(e.getMessage());
+        }
+
         boards.put(player.getUniqueId(), board);
         updateBoard(player);
     }
@@ -136,8 +140,12 @@ public class BoardManager {
             }
             lines.add(line);
         }
-        
-        board.updateLines(lines.toArray(new String[0]));
+
+        try {
+            board.updateLines(lines.toArray(new String[0]));
+        } catch (IllegalArgumentException e) {
+            Bukkit.getLogger().warning(e.getMessage());
+        }
     }
     
     /**

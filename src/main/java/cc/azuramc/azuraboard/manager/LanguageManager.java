@@ -1,6 +1,7 @@
 package cc.azuramc.azuraboard.manager;
 
 import cc.azuramc.azuraboard.AzuraBoard;
+import cc.azuramc.azuraboard.util.VersionUtil;
 import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -194,7 +195,7 @@ public class LanguageManager {
      */
     public String getPlayerLanguage(Player player) {
         // Use client locale if available (1.12+)
-        try {
+        if (VersionUtil.checkVersion(1, 12)) {
             String locale = player.getLocale();
             if (!locale.isEmpty() && languages.containsKey(locale)) {
                 return locale;
@@ -210,8 +211,6 @@ public class LanguageManager {
                     }
                 }
             }
-        } catch (Exception ignored) {
-            // Method might not exist in older versions
         }
         
         // Use default language if client locale is not available or not supported
