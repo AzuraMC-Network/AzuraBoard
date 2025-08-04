@@ -4,14 +4,14 @@ plugins {
 }
 
 group = 'cc.azuramc'
-version = '1.2.3'
+version = '1.2.4'
 
 // Build type properties
 ext {
     // Default use Java 8 build without Folia-related code
     // Use -PuseFolia=true to enable Folia support
     useFolia = project.hasProperty('useFolia') ? project.getProperty('useFolia').toBoolean() : false
-    
+
     // Java version, based on whether Folia is enabled
     targetJavaVersion = useFolia ? 17 : 8
 }
@@ -67,7 +67,7 @@ tasks.register('generateSchedulerFactoryBukkit') {
         println "=== Generating factory for Bukkit build ==="
         def factoryDir = new File(project.projectDir, 'src/main/java/cc/azuramc/azuraboard/scheduler')
         def factoryFile = new File(factoryDir, 'GeneratedSchedulerFactory.java')
-        
+
         factoryFile.text = """package cc.azuramc.azuraboard.scheduler;
 
 import cc.azuramc.azuraboard.scheduler.impl.BukkitCompatImpl;
@@ -92,7 +92,7 @@ tasks.register('generateSchedulerFactoryFolia') {
         println "=== Generating factory for Folia build ==="
         def factoryDir = new File(project.projectDir, 'src/main/java/cc/azuramc/azuraboard/scheduler')
         def factoryFile = new File(factoryDir, 'GeneratedSchedulerFactory.java')
-        
+
         factoryFile.text = """package cc.azuramc.azuraboard.scheduler;
 
 import cc.azuramc.azuraboard.scheduler.impl.FoliaCompatImpl;
@@ -127,13 +127,13 @@ tasks.register('updateSchedulerFactory') {
     doLast {
         def factoryFile = new File(project.projectDir, 'src/main/java/cc/azuramc/azuraboard/scheduler/SchedulerFactory.java')
         def content = factoryFile.text
-        
+
         // Update instance creation logic
         def updatedContent = content.replaceAll(
             /instance = new BukkitCompatImpl\(\);/,
             'instance = GeneratedSchedulerFactory.createSchedulerImpl();'
         )
-        
+
         factoryFile.text = updatedContent
     }
 }
@@ -171,7 +171,7 @@ processResources {
 
 shadowJar {
     relocate 'fr.mrmicky.fastboard', 'cc.azuramc.azuraboard.base'
-    
+
     // Set different archive name based on build type
     archiveClassifier.set(useFolia ? 'folia' : 'bukkit')
 }
@@ -180,7 +180,7 @@ shadowJar {
 tasks.register('buildBukkit') {
     description = "Build standard version (Java 8)"
     group = 'build'
-    
+
     doFirst {
         println "=== Setting up Standard Build Environment ==="
         // Force Folia to be disabled for this task
@@ -189,23 +189,23 @@ tasks.register('buildBukkit') {
         project.ext.targetJavaVersion = 8
         java.sourceCompatibility = JavaVersion.VERSION_1_8
         java.targetCompatibility = JavaVersion.VERSION_1_8
-        
+
         // Apply source filtering to exclude Folia code
         sourceSets.main.java.excludes.clear()
         sourceSets.main.java.excludes.add('cc/azuramc/azuraboard/scheduler/impl/FoliaCompatImpl.java')
-        
+
         // Make sure the classifier is set correctly
         tasks.shadowJar.archiveClassifier.set('bukkit')
     }
-    
+
     // Use the Bukkit-specific factory generator
     dependsOn generateSchedulerFactoryBukkit, updateSchedulerFactory
-    
+
     doLast {
         println "=== Standard Version (Java 8) Built Successfully ==="
         println "Output file: build/libs/AzuraBoard-${version}-bukkit.jar"
     }
-    
+
     // Run the shadow jar task after our configuration
     finalizedBy tasks.shadowJar
 }
@@ -214,7 +214,7 @@ tasks.register('buildBukkit') {
 tasks.register('buildFolia') {
     description = "Build Folia version (Java 17)"
     group = 'build'
-    
+
     doFirst {
         println "=== Setting up Folia Build Environment ==="
         // Force Folia to be enabled for this task
@@ -223,29 +223,29 @@ tasks.register('buildFolia') {
         project.ext.targetJavaVersion = 17
         java.sourceCompatibility = JavaVersion.VERSION_17
         java.targetCompatibility = JavaVersion.VERSION_17
-        
+
         // Ensure Java 17 is set for compilation
         tasks.compileJava.sourceCompatibility = '17'
         tasks.compileJava.targetCompatibility = '17'
         if (JavaVersion.current() < JavaVersion.VERSION_17) {
             tasks.compileJava.options.release = 17
         }
-        
+
         // Remove source filtering to include Folia code
         sourceSets.main.java.excludes.clear()
-        
+
         // Make sure the classifier is set correctly
         tasks.shadowJar.archiveClassifier.set('folia')
     }
-    
+
     // Use the Folia-specific factory generator
     dependsOn generateSchedulerFactoryFolia, updateSchedulerFactory
-    
+
     doLast {
         println "=== Folia Version (Java 17) Built Successfully ==="
         println "Output file: build/libs/AzuraBoard-${version}-folia.jar"
     }
-    
+
     // Run the shadow jar task after our configuration
     finalizedBy tasks.clean, tasks.compileJava, tasks.shadowJar
 }
@@ -254,7 +254,7 @@ tasks.register('buildFolia') {
 tasks.register('cleanBuildFolia') {
     description = "Clean build the Folia version (Java 17)"
     group = 'build'
-    
+
     dependsOn tasks.clean, 'buildFolia'
 }
 
@@ -262,7 +262,7 @@ tasks.register('cleanBuildFolia') {
 tasks.register('buildAll') {
     description = "Build all versions (Standard and Folia)"
     group = 'build'
-    
+
     doLast {
         println "=== Build Instructions ==="
         println "For Standard Version (Java 8): ./gradlew buildBukkit"
@@ -278,7 +278,7 @@ tasks.register('buildAll') {
 tasks.register('buildHelp') {
     description = "Show help for the build system"
     group = 'help'
-    
+
     doLast {
         println """
 === AzuraBoard Build System Help ===
