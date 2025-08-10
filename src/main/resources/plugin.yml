@@ -14,6 +14,9 @@ commands:
     description: Main command for AzuraBoard plugin
     aliases: [ab]
     permission: azuraboard.command
+  sb:
+    description: Quick toggle for scoreboard display
+    permission: azuraboard.toggle
 permissions:
   azuraboard.command:
     description: Allows using AzuraBoard commands

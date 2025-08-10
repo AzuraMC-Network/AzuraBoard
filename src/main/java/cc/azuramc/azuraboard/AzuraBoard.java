@@ -1,6 +1,7 @@
 package cc.azuramc.azuraboard;
 
 import cc.azuramc.azuraboard.command.AzuraBoardCommand;
+import cc.azuramc.azuraboard.command.ScoreboardCommand;
 import cc.azuramc.azuraboard.listener.PlayerListener;
 import cc.azuramc.azuraboard.manager.BoardManager;
 import cc.azuramc.azuraboard.manager.ConfigManager;
@@ -138,6 +139,7 @@ public final class AzuraBoard extends JavaPlugin {
 
     private void registerCommands() {
         Objects.requireNonNull(getCommand("azuraboard")).setExecutor(new AzuraBoardCommand(this));
+        Objects.requireNonNull(getCommand("sb")).setExecutor(new ScoreboardCommand(this));
     }
 
     private void loadMetrics() {
