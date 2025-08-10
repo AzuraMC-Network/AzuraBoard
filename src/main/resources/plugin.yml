@@ -16,7 +16,6 @@ commands:
     permission: azuraboard.command
   sb:
     description: Quick toggle for scoreboard display
-    permission: azuraboard.toggle
 permissions:
   azuraboard.command:
     description: Allows using AzuraBoard commands

@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Simple command handler for /sb command
  * Provides a quick way to toggle scoreboard display
+ * No permissions required - available to all players
  * 
  * @author an5w1r@163.com
  */
@@ -49,12 +50,6 @@ public class ScoreboardCommand implements CommandExecutor {
         
         Player player = (Player) sender;
         String langCode = plugin.getLanguageManager().getPlayerLanguage(player);
-        
-        // Check permission
-        if (!player.hasPermission("azuraboard.toggle")) {
-            player.sendMessage(plugin.getLanguageManager().getMessage("no-permission", langCode));
-            return true;
-        }
         
         // Toggle the scoreboard
         boolean isToggled = plugin.getBoardManager().toggleBoard(player);
