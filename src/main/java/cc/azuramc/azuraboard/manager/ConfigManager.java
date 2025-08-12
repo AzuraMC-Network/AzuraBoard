@@ -142,7 +142,8 @@ public class ConfigManager {
                     if (lines.isEmpty()) {
                         lines = defaultScoreboard.getLines();
                     }
-                    permissionScoreboards.put(configName, new PermissionScoreboardConfig(permission, title, lines));
+                    int priority = permConfig.getInt("priority", 0); // Default priority if not specified
+                    permissionScoreboards.put(configName, new PermissionScoreboardConfig(permission, title, lines, priority));
                 }
             }
         }
@@ -174,7 +175,8 @@ public class ConfigManager {
         if (enablePermissionBased) {
             for (PermissionScoreboardConfig permConfig : permissionScoreboards.values()) {
                 if (player.hasPermission(permConfig.getPermission())) {
-                    candidates.add(new ScoreboardCandidate(permConfig, permissionBasedPriority));
+                    // Use individual permission scoreboard priority instead of global priority
+                    candidates.add(new ScoreboardCandidate(permConfig, permConfig.getPriority()));
                 }
             }
         }
@@ -242,10 +244,12 @@ public class ConfigManager {
      */
     public static class PermissionScoreboardConfig extends ScoreboardConfig {
         @Getter private final String permission;
+        @Getter private final int priority;
 
-        public PermissionScoreboardConfig(String permission, String title, List<String> lines) {
+        public PermissionScoreboardConfig(String permission, String title, List<String> lines, int priority) {
             super(title, lines);
             this.permission = permission;
+            this.priority = priority;
         }
     }
 

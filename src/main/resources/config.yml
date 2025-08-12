@@ -108,6 +108,9 @@ permission-scoreboards:
     # Permission node required for this scoreboard | 此计分板所需的权限节点
     permission: 'azuraboard.vip'
 
+    # Priority for this scoreboard (higher number = higher priority) | 此计分板的优先级（数值越高优先级越高）
+    priority: 80
+
     # VIP scoreboard title | VIP计分板标题
     title: '&6&lVIP &f&lBoard'
 
@@ -127,6 +130,9 @@ permission-scoreboards:
   admin:
     # Permission node required for admin scoreboard | 管理员计分板所需的权限节点
     permission: 'azuraboard.admin'
+
+    # Priority for this scoreboard (higher number = higher priority) | 此计分板的优先级（数值越高优先级越高）
+    priority: 100
 
     # Administrator scoreboard title | 管理员计分板标题
     title: '&c&lAdmin Panel'
@@ -148,6 +154,9 @@ permission-scoreboards:
     # Custom permission node (you can use any permission) | 自定义权限节点（您可以使用任何权限）
     permission: 'azuraboard.builder'
 
+    # Priority for this scoreboard (higher number = higher priority) | 此计分板的优先级（数值越高优先级越高）
+    priority: 60
+
     # Builder scoreboard title | 建筑师计分板标题
     title: '&e&lBuilder'
 
@@ -168,7 +177,10 @@ permission-scoreboards:
 # =============================================================================
 # World name matching: Keys in world-scoreboards must exactly match actual world names | 世界名称匹配：world-scoreboards 中的键名必须与实际世界名称完全匹配
 # Custom permission nodes: You can use any permission node in permission-scoreboards | 权限节点自定义：您可以在 permission-scoreboards 中使用任何权限节点
-# Priority: When a player meets multiple conditions, the highest priority config will be used | 优先级：当玩家同时满足多个条件时，将使用优先级最高的配置
+# Priority system: When a player meets multiple conditions, the highest priority config will be used | 优先级系统：当玩家同时满足多个条件时，将使用优先级最高的配置
+#   - Global priority order (settings.priority-order) sets category priorities | 全局优先级顺序（settings.priority-order）设置类别优先级
+#   - Individual priority within permission-scoreboards determines which permission scoreboard to use | permission-scoreboards 内的单独优先级决定使用哪个权限计分板
+#   - Example: If a player has both admin (priority: 100) and vip (priority: 80) permissions, admin scoreboard will be used | 示例：如果玩家同时拥有 admin（优先级：100）和 vip（优先级：80）权限，将使用 admin 计分板
 # PlaceholderAPI support: All %variable_name% format placeholders require corresponding extensions | PlaceholderAPI 支持：所有 %变量名% 格式的占位符都需要安装对应的扩展
 # Color codes: Use & symbol, e.g., &a (green), &c (red), &l (bold), etc. | 颜色代码：使用 & 符号，例如 &a（绿色）、&c（红色）、&l（粗体）等
 # Also we support RGB colors like &#RRGGBBText or {#RRGGBB}Text | 还支持RGB颜色代码，例如 &#RRGGBBText 或 {#RRGGBB}Text

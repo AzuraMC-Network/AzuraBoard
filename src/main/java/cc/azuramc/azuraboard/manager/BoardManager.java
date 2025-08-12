@@ -128,6 +128,14 @@ public class BoardManager {
             return;
         }
 
+        // Update title in case player's permissions or world changed
+        try {
+            board.updateTitle(ChatColorUtil.parse(player, plugin.getConfigManager().getTitle(player)));
+        } catch (IllegalArgumentException e) {
+            Bukkit.getLogger().warning(e.getMessage() + " plz fix it in config.yml");
+        }
+
+        // Update lines
         List<String> lines = new ArrayList<>();
         for (String line : plugin.getConfigManager().getLines(player)) {
             line = ChatColorUtil.parse(player, line);
