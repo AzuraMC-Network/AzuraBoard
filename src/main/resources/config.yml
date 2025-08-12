@@ -1,26 +1,183 @@
-# AzuraBoard Configuration File
-# Use color codes with & to set colors, example: &a&lTitle
+# =============================================================================
+# AzuraBoard Configuration File | AzuraBoard 配置文件
+# =============================================================================
+# Use & for color codes, example: &a&lTitle | 使用 & 符号设置颜色代码，例如: &a&l标题
+# This plugin supports PlaceholderAPI placeholders | 此插件支持 PlaceholderAPI 占位符
+# =============================================================================
 
+# Basic Settings | 基础设置
 settings:
-  update-interval: 20 # Update interval in ticks
-  # Note: PlaceholderAPI support is automatically enabled if the plugin is detected
-  language: "en_US" # Language setting (en_US, zh_CN, etc.)
+  # Update interval in ticks (20 ticks = 1 second) | 更新间隔（以tick为单位，20 tick = 1秒）
+  update-interval: 20
 
-scoreboard:
-  # Scoreboard title
+  # Language setting (en_US, zh_CN, etc.) | 语言设置 (en_US, zh_CN 等)
+  language: "en_US"
+
+  # Feature switches - Enable or disable specific features | 功能开关 - 启用或禁用特定功能
+
+  # Enable world-specific scoreboards | 启用世界特定计分板
+  enable-world-specific: false
+
+  # Enable permission-based scoreboards | 启用基于权限的计分板
+  enable-permission-based: false
+
+  # Priority order - Higher number = Higher priority | 优先级顺序 - 数值越高优先级越高
+  # When a player matches multiple conditions, the highest priority will be used | 当玩家匹配多个条件时，将使用优先级最高的配置
+  priority-order:
+    # Permission-based scoreboard priority | 基于权限的计分板优先级
+    permission-based: 100
+
+    # World-specific scoreboard priority | 世界特定计分板优先级
+    world-specific: 50
+
+    # Default scoreboard priority | 默认计分板优先级
+    default: 0
+
+# =============================================================================
+# Default Scoreboard | 默认计分板
+# =============================================================================
+# Used when no other conditions match | 当没有其他条件匹配时使用
+# =============================================================================
+default-scoreboard:
+  # Scoreboard title | 计分板标题
   title: '&b&lAzura&f&lBoard'
-  
-  # Scoreboard content (supports up to 15 lines)
-  # You can use PlaceholderAPI variables, e.g. %player_name%
-  # Support RGB Color like: &#RRGGBBText or {#RRGGBB}Text
+
+  # Scoreboard content lines | 计分板内容行
   lines:
     - '&7&m----------------'
-    - '&f玩家: &a%player_name%'
-    - '&f世界: &a%player_world%'
-    - ' '
-    - '&fX: &a%player_x%'
-    - '&fY: &a%player_y%'
-    - '&fZ: &a%player_z%'
-    - ' '
-    - '&7play.azuramc.cc'
-    - '&7&m----------------' 
+    - '&fPlayer: &a%player_name%'       # Player name | 玩家名称
+    - '&fWorld: &a%player_world%'       # Current world | 当前世界
+    - ' '                               # Empty line | 空行
+    - '&fX: &a%player_x%'              # X coordinate | X坐标
+    - '&fY: &a%player_y%'              # Y coordinate | Y坐标
+    - '&fZ: &a%player_z%'              # Z coordinate | Z坐标
+    - ' '                               # Empty line | 空行
+    - '&7play.azuramc.cc'              # Server info | 服务器信息
+    - '&7&m----------------'
+
+# =============================================================================
+# World-Specific Scoreboards | 世界特定计分板
+# =============================================================================
+# Only effective when enable-world-specific is true | 仅在 enable-world-specific 为 true 时生效
+# Configure different scoreboards for different worlds | 为不同的世界配置不同的计分板
+# =============================================================================
+world-scoreboards:
+  # Survival world example configuration (world name: "world") | 生存世界的示例配置（世界名称: "world"）
+  world:
+    # Survival world scoreboard title | 生存世界计分板标题
+    title: '&a&lSurvival World | &a&l生存世界'
+
+    # Survival world content lines | 生存世界内容行
+    lines:
+      - '&7&m----------------'
+      - '&fPlayer: &a%player_name%'
+      - '&fWorld: &a%player_world%'
+      - ' '
+      - '&fMoney: &e%vault_eco_balance%'
+      - '&fLevel: &b%player_level%'
+      - ' '
+      - '&7Survival Mode'
+      - '&7&m----------------'
+
+  # Creative world example configuration (world name: "world_creative") | 创造世界的示例配置（世界名称: "world_creative"）
+  world_creative:
+    # Creative world scoreboard title | 创造世界计分板标题
+    title: '&d&lCreative World'
+
+    # Creative world content lines | 创造世界内容行
+    lines:
+      - '&7&m----------------'
+      - '&fPlayer: &a%player_name%'
+      - '&fWorld: &a%player_world%'
+      - ' '
+      - '&fCreative Mode'
+      - '&fUnlimited Resources'
+      - ' '
+      - '&7Build freely!'
+      - '&7&m----------------'
+
+# =============================================================================
+# Permission-Based Scoreboards | 基于权限的计分板
+# =============================================================================
+# Only effective when enable-permission-based is true | 仅在 enable-permission-based 为 true 时生效
+# Configure different scoreboards for players with specific permissions | 为拥有特定权限的玩家配置不同的计分板
+# =============================================================================
+permission-scoreboards:
+  # VIP player configuration | VIP玩家配置
+  vip:
+    # Permission node required for this scoreboard | 此计分板所需的权限节点
+    permission: 'azuraboard.vip'
+
+    # VIP scoreboard title | VIP计分板标题
+    title: '&6&lVIP &f&lBoard'
+
+    # VIP player content lines | VIP玩家内容行
+    lines:
+      - '&7&m----------------'
+      - '&6&l[VIP] &a%player_name%'
+      - '&fWorld: &a%player_world%'
+      - ' '
+      - '&fMoney: &e%vault_eco_balance%'
+      - '&fLevel: &b%player_level%'
+      - ' '
+      - '&6Thank you for your support!'
+      - '&7&m----------------'
+
+  # Administrator player configuration | 管理员玩家配置
+  admin:
+    # Permission node required for admin scoreboard | 管理员计分板所需的权限节点
+    permission: 'azuraboard.admin'
+
+    # Administrator scoreboard title | 管理员计分板标题
+    title: '&c&lAdmin Panel'
+
+    # Administrator player content lines | 管理员玩家内容行
+    lines:
+      - '&7&m----------------'
+      - '&c&l[ADMIN] &a%player_name%'
+      - '&fWorld: &a%player_world%'
+      - ' '
+      - '&fOnline: &b%server_online%'
+      - '&fTPS: &e%server_tps%'
+      - ' '
+      - '&cAdmin Only'
+      - '&7&m----------------'
+
+  # Custom permission example - Builder role | 自定义权限示例 - 建筑师角色
+  builder:
+    # Custom permission node (you can use any permission) | 自定义权限节点（您可以使用任何权限）
+    permission: 'azuraboard.builder'
+
+    # Builder scoreboard title | 建筑师计分板标题
+    title: '&e&lBuilder'
+
+    # Builder player content lines | 建筑师玩家内容行
+    lines:
+      - '&7&m----------------'
+      - '&e&l[Builder] &a%player_name%'
+      - '&fWorld: &a%player_world%'
+      - ' '
+      - '&fCoords: &a%player_x%, %player_y%, %player_z%'
+      - '&fFacing: &b%player_direction%'
+      - ' '
+      - '&eBuild beautiful worlds!'
+      - '&7&m----------------'
+
+# =============================================================================
+# Configuration Notes | 配置说明
+# =============================================================================
+# World name matching: Keys in world-scoreboards must exactly match actual world names | 世界名称匹配：world-scoreboards 中的键名必须与实际世界名称完全匹配
+# Custom permission nodes: You can use any permission node in permission-scoreboards | 权限节点自定义：您可以在 permission-scoreboards 中使用任何权限节点
+# Priority: When a player meets multiple conditions, the highest priority config will be used | 优先级：当玩家同时满足多个条件时，将使用优先级最高的配置
+# PlaceholderAPI support: All %variable_name% format placeholders require corresponding extensions | PlaceholderAPI 支持：所有 %变量名% 格式的占位符都需要安装对应的扩展
+# Color codes: Use & symbol, e.g., &a (green), &c (red), &l (bold), etc. | 颜色代码：使用 & 符号，例如 &a（绿色）、&c（红色）、&l（粗体）等
+# Also we support RGB colors like &#RRGGBBText or {#RRGGBB}Text | 还支持RGB颜色代码，例如 &#RRGGBBText 或 {#RRGGBB}Text
+#
+# Common PAPI placeholders (You need to use eCloud to download the extension) | 常用PAPI占位符 (需要使用eCloud下载拓展) :
+# %player_name% - Player name | 玩家名称
+# %player_world% - Current world | 当前世界
+# %player_x%, %player_y%, %player_z% - Player coordinates | 玩家坐标
+# %server_online% - Online player count | 在线玩家数
+# %server_tps% - Server TPS | 服务器TPS
+# %vault_eco_balance% - Player balance (requires Vault) | 玩家余额（需要Vault）
+# =============================================================================

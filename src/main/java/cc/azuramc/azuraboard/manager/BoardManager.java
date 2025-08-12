@@ -5,7 +5,6 @@ import cc.azuramc.azuraboard.util.ChatColorUtil;
 import cc.azuramc.azuraboard.util.SchedulerUtil;
 import cc.azuramc.azuraboard.util.VersionUtil;
 import fr.mrmicky.fastboard.FastBoard;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -71,7 +70,7 @@ public class BoardManager {
         };
 
         try {
-            board.updateTitle(ChatColorUtil.parse(player, plugin.getConfigManager().getTitle()));
+            board.updateTitle(ChatColorUtil.parse(player, plugin.getConfigManager().getTitle(player)));
         } catch (IllegalArgumentException e) {
             Bukkit.getLogger().warning(e.getMessage() + " plz fix it in config.yml");
         }
@@ -130,7 +129,7 @@ public class BoardManager {
         }
 
         List<String> lines = new ArrayList<>();
-        for (String line : plugin.getConfigManager().getLines()) {
+        for (String line : plugin.getConfigManager().getLines(player)) {
             line = ChatColorUtil.parse(player, line);
             lines.add(line);
         }
@@ -196,12 +195,25 @@ public class BoardManager {
     }
 
     /**
-     * Check if a player has toggled their scoreboard off
+     * Check if a player has toggled off their scoreboard
      *
      * @param player The player to check
      * @return true if the player has toggled off their scoreboard
      */
     public boolean isToggled(Player player) {
         return toggledOff.contains(player.getUniqueId());
+    }
+
+    /**
+     * Refresh a player's scoreboard by removing and recreating it
+     * This is useful when player's permissions or world changes
+     *
+     * @param player The player whose scoreboard should be refreshed
+     */
+    public void refreshBoard(Player player) {
+        if (!toggledOff.contains(player.getUniqueId())) {
+            removeBoard(player);
+            createBoard(player);
+        }
     }
 }

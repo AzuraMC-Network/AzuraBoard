@@ -5,6 +5,7 @@ import cc.azuramc.azuraboard.util.SchedulerUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -56,4 +57,23 @@ public class PlayerListener implements Listener {
         // Remove the player's scoreboard
         plugin.getBoardManager().removeBoard(player);
     }
-} 
+    
+    /**
+     * Handles player world change event
+     * Updates the player's scoreboard if world-specific configuration is enabled
+     * 
+     * @param event The player world change event
+     */
+    @EventHandler
+    public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
+        Player player = event.getPlayer();
+        
+        // Only update if world-specific configuration is enabled
+        if (plugin.getConfigManager().isEnableWorldSpecific()) {
+            // Update the player's scoreboard with new world configuration
+            SchedulerUtil.runTaskLater(plugin, () -> {
+                plugin.getBoardManager().refreshBoard(player);
+            }, 1L);
+        }
+    }
+}
